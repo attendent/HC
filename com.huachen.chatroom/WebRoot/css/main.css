@@ -1,0 +1,82 @@
+@charset "UTF-8";
+
+.div-inline{
+	display:inline
+	} 
+
+input{
+	width:100px; 
+	height: 40px;
+	font-size: 25px;
+	font-color:red;
+	}
+body{
+	background-image:url(../images/house.jpg);
+	background-position:center;
+    background-repeat: no-repeat;
+}
+
+textarea{
+	background:transparent;
+}
+
+#show_textarea{
+	cols:105px;
+	rows:25px;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+#Main{
+leftmargin:250px;
+topmargin:250px;
+rightmargin:250px;
+}
+
+body {
+	font-size: 15px;
+	padding: 00px;
+}
+
+.menu {
+	width: 300px;
+	border-bottom: solid 1px gray;
+}
+
+.menu h3 {
+	border: solid 1px gray;
+	height: 30px;
+	line-height: 30px;
+	padding-left: 10px;
+	padding: 0 5px;
+	border-bottom: none;
+	cursor: pointer;
+}
+
+.menu p {
+	border-left: solid 1px gray;
+	border-right: solid 1px gray;
+	padding: 20px 0;
+	padding-left: 5px;
+}
+
+.changecolor {
+	background-color: red;
+}
+
+#main{
+	width:400px;
+	height: auto;
+	float: left;
+	display: inline
+}
+
+#left{
+	width: 300px;
+	height: auto;
+	float: left;
+	display: inline
+}
