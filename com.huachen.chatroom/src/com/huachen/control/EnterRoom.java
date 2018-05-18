@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.huachen.model.ChatContent;
 import com.huachen.model.ChatRoom;
 import com.huachen.model.User;
 import com.huachen.service.ChatService;
@@ -20,22 +19,23 @@ import com.huachen.service.Impl.ChatServiceImpl;
 public class EnterRoom extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	public String chat_record = "";
+	public String record = "";
 	
     public EnterRoom() {
         super();
         // TODO Auto-generated constructor stub
     }
 
+    @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request,response);
 	}
 
+    @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String roomId = request.getParameter("roomId");
 		String roomName = request.getParameter("roomName");
-		List<ChatContent> contents = new ArrayList<>();
 		List<User> userlist = new ArrayList<>();
 		ChatService chatservice = new ChatServiceImpl();
 		ChatRoom chatRoom = new ChatRoom();
@@ -44,21 +44,16 @@ public class EnterRoom extends HttpServlet {
         chatRoom.setId(Integer.parseInt(roomId));
         chatRoom.setRoomName(roomName);
         
-        //得到该房间的消息记录和成员
-        contents = chatservice.getAllContents(Integer.parseInt(roomId));
+        //得到该房间的成员
         userlist = chatservice.getAllUsers(Integer.parseInt(roomId));
         
-        //将服务器中消息记录清零并从数据库中重新读取消息记录
-        chat_record = "";
-        for(ChatContent content : contents) {
-        	chat_record += content.getUserName() + " 于 " + content.getDate() + " 说： " + content.getContent() + "\n";
-        }
-        
-        //将当前聊天输入内容存储
-        request.getSession().setAttribute("input_textarea",chat_record); 
+        //清空消息记录
+        record = "";
+
+        request.getSession().setAttribute("contents", record);
         request.getSession().setAttribute("chatRoom",chatRoom);
         request.getSession().setAttribute("userlist",userlist);
         
-        request.getRequestDispatcher("Index").forward(request, response);
+        request.getRequestDispatcher("Index.jsp").forward(request, response);
 	}
 }

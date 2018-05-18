@@ -8,30 +8,36 @@ import com.huachen.model.Role;
 import com.huachen.model.User;
 import com.huachenservice.UserService;
 
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
 	UserDao userdao = new UserDaoImpl();
+
 	@Override
 	public boolean login(String userName, String password) {
-		if(userdao.isExist(userName, password) == true)
+		if (userdao.isExist(userName, password) == true) {
 			return true;
-		else
+		} else {
 			return false;
+		}
 	}
 
 	@Override
 	public boolean register(User user) {
-		if(userdao.isExist(user.getUserName()) == false)
-			if(userdao.register(user) == true)
+		if (userdao.isExist(user.getUserName()) == false) {
+			if (userdao.register(user) == true) {
 				return true;
-		return false;	
+			}
+		}
+		return false;
 	}
 
 	@Override
 	public boolean update(User user, String nextPassword) {
-		if (userdao.isExist(user.getUserName(), user.getPassword()) == true)
-			if(userdao.update(user, nextPassword) == true)
+		if (userdao.isExist(user.getUserName(), user.getPassword()) == true) {
+			if (userdao.update(user, nextPassword) == true) {
 				return true;
+			}
+		}		
 		return false;
 	}
 
@@ -56,7 +62,7 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void updateRole(User user, List<Role> roles) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

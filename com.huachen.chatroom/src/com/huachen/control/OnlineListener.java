@@ -27,5 +27,4 @@ public class OnlineListener implements HttpSessionListener {
          count--;
          context.setAttribute("peopleOnline", count);
 	}
-
 }

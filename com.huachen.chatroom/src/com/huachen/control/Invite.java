@@ -10,34 +10,29 @@ import javax.servlet.http.HttpServletResponse;
 import com.huachen.service.UserService;
 import com.huachen.service.Impl.UserServiceImpl;
 
-@WebServlet("/DelFriend")
-public class DelFriend extends HttpServlet {
+@WebServlet("/Invite")
+public class Invite extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public DelFriend() {
+
+    public Invite() {
         super();
     }
 
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
 	}
-
+	
     @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String friendId = request.getParameter("friendId");
-		Integer userId = (Integer) request.getSession().getAttribute("userId");
+		String roomId = request.getParameter("roomId");
 		
 		UserService userservice = new UserServiceImpl();
 		
-		if(userservice.delFriend(userId,Integer.parseInt(friendId)) == true) {
-			request.setAttribute("msg", "刪除好友成功");
-			request.getRequestDispatcher("Index").forward(request, response);
-		}else {
-			request.setAttribute("msg", "刪除好友失败");
-			request.getRequestDispatcher("Index").forward(request, response);
-		}
+		userservice.addUserRoom(Integer.parseInt(friendId), Integer.parseInt(roomId));
+		
+		request.getRequestDispatcher("Index.jsp").forward(request, response);
 	}
 
 }

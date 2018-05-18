@@ -12,16 +12,14 @@
     <error-code>404</error-code>
     <location>/Error.jsp</location>
   </error-page>
-  
   <filter>
-  <filter-name>Private</filter-name>
-  <filter-class>com.huachen.filter.Private</filter-class>
+    <filter-name>Private</filter-name>
+    <filter-class>com.huachen.filter.Private</filter-class>
   </filter>
   <filter-mapping>
-  <filter-name>Private</filter-name>
-  <url-pattern>/Index</url-pattern>
+    <filter-name>Private</filter-name>
+    <url-pattern>/Index.jsp</url-pattern>
   </filter-mapping>
-  
   <filter>
     <filter-name>EncodingFilter</filter-name>
     <filter-class>com.huachen.filter.EncodingFilter</filter-class>

@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.huachen.model.ChatRoom;
 import com.huachen.model.Role;
 import com.huachen.model.User;
+import com.huachen.service.ChatService;
 import com.huachen.service.UserService;
+import com.huachen.service.Impl.ChatServiceImpl;
 import com.huachen.service.Impl.UserServiceImpl;
 
 @WebServlet("/Index")
@@ -24,20 +26,27 @@ public class Index extends HttpServlet {
 		super();
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
-		String userName = (String) request.getSession().getAttribute("userName");
-		if (userName == null) {
+		Integer roomId = 1;
+		String roomName = "聊天总群";
+		if (userId == null) {
+			String nickName = new String();
 			int num = (int) (Math.random() * 10000);
-			userName = "游客" + num;
-			request.getSession().setAttribute("userName", userName);
-			request.getSession().setAttribute("nickName", userName);
-			response.sendRedirect("Index.jsp");
-			return;
+			nickName = "游客" + num;
+			request.getSession().setAttribute("nickName", nickName);
 		}
 
+		List<User> userlist = new ArrayList<>();
+		ChatService chatservice = new ChatServiceImpl();
+		ChatRoom chatRoom = new ChatRoom();
+		
+		chatRoom.setId(roomId);
+        chatRoom.setRoomName(roomName);
+		
 		UserService userservice = new UserServiceImpl();
 		List<Role> roles = new ArrayList<>();
 		List<User> friends = new ArrayList<>();
@@ -47,14 +56,18 @@ public class Index extends HttpServlet {
 		roles = userservice.getRoles(userId);
 		friends = userservice.getFriends(userId);
 		chatRooms = userservice.getChatRooms(userId);
+		userlist = chatservice.getAllUsers(roomId);
 
 		request.getSession().setAttribute("roles", roles);
 		request.getSession().setAttribute("friends", friends);
 		request.getSession().setAttribute("chatRooms", chatRooms);
+		request.getSession().setAttribute("chatRoom",chatRoom);
+		request.getSession().setAttribute("userlist",userlist);
 
 		response.sendRedirect("Index.jsp");
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);

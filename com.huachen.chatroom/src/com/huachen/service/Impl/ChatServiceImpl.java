@@ -15,9 +15,11 @@ public class ChatServiceImpl implements ChatService {
 	
 	@Override
 	public boolean createRoom(String roomName) {
-		if(chatdao.isExistRoom(roomName) == false)
-			if(chatdao.createRoom(roomName) == true)
+		if(chatdao.isExistRoom(roomName) == false) {
+			if(chatdao.createRoom(roomName) == true) {
 				return true;
+			}		
+		}		
 		return false;
 	}
 	

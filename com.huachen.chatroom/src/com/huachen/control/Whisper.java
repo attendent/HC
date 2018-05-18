@@ -30,17 +30,24 @@ public class Whisper extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String friendId = request.getParameter("friendId");
 		String friendName = request.getParameter("friendName");
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
+		if(userId == Integer.parseInt(friendId)) {
+			request.setAttribute("msg", "不能私聊自己");
+			request.getRequestDispatcher("Index.jsp").forward(request, response);
+			return ;
+		}
 		
 		UserService userservice = new UserServiceImpl();
 		ChatService chatservice = new ChatServiceImpl();

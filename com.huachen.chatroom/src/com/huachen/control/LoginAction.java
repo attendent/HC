@@ -1,7 +1,6 @@
 package com.huachen.control;
 
 import java.io.IOException;
-import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +8,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.huachen.model.User;
 import com.huachen.service.UserService;
@@ -26,12 +26,14 @@ public class LoginAction extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String userName = request.getParameter("userName");
@@ -62,16 +64,21 @@ public class LoginAction extends HttpServlet {
 					//由用户名找到该用户的基本信息并存储在user中
 					user = userservice.find(userName);					
 					
-					request.getSession().setAttribute("userName", userName);
+					//request.getSession().setAttribute("userName", userName);
 					request.getSession().setAttribute("userId", user.getId());
-					request.getSession().setAttribute("user", user);
+					//request.getSession().setAttribute("user", user);
 					request.getSession().setAttribute("nickName", user.getNickName());
+					
+					HttpSession session =request.getSession();
+					session.setAttribute("user", user);
+					session.setMaxInactiveInterval(2 * 3600);
 					
 					if ("true".equals(request.getParameter("autologin"))) {
 						//如果勾选自动登录
-						Cookie cookie = new Cookie("autologin", URLEncoder.encode(userName, "utf-8") + "." + password);
-						cookie.setMaxAge(60);
-						cookie.setPath("/com.huachen.chatroom");
+						//Cookie cookie = new Cookie("autologin", URLEncoder.encode(userName, "utf-8") + "." + password);
+						Cookie cookie = new Cookie("JSESSIONID", session.getId());
+						cookie.setMaxAge(2 * 3600);
+						cookie.setPath("/");
 						response.addCookie(cookie);
 					}
 					response.sendRedirect("Index");

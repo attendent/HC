@@ -19,6 +19,7 @@ public class Remark extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
+    @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String friendId = request.getParameter("friendId");
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
@@ -34,6 +35,7 @@ public class Remark extends HttpServlet {
 		}
 	}
 
+    @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

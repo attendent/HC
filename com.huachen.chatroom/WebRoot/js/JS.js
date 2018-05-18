@@ -30,7 +30,7 @@ function test() {
 		return false;
 	}
 	var temp = document.form1.mail.value; // 对电子邮件的验证 
-	var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+	var myreg = "^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$";
 	if (!myreg.test(temp.value)) {
 		alert('请输入有效的E_mail！');
 		document.form1.mail.focus();

@@ -344,8 +344,9 @@ public class UserDaoImpl implements UserDao {
 			String sql = "SELECT * FROM user_friend WHERE userid = '"+ userId +"' ANd friendid = '"+ friendId +"'";
  			ps = (PreparedStatement) con.prepareStatement(sql);
 			rs = ps.executeQuery();
-			if(rs.next())
+			if(rs.next()) {
 				return true;
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -438,8 +439,9 @@ public class UserDaoImpl implements UserDao {
 			String sql = "SELECT * FROM user_room WHERE userid = '"+ userId +"' ANd roomid = '"+ roomId +"'";
  			ps = (PreparedStatement) con.prepareStatement(sql);
 			rs = ps.executeQuery();
-			if(rs.next())
+			if(rs.next()) {
 				return true;
+			}	
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

@@ -41,7 +41,7 @@ public class VerificationImpl implements Verification {
 	@Override
 	public boolean mailFormat(String mail) {
 		boolean tag = true;
-		final String pattern1 = "^([a-z0-9A-Z]+[-|//.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?//.)+[a-zA-Z]{2,}$";
+		final String pattern1 = "^[a-z0-9]+([._\\\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$";
 		final Pattern pattern = Pattern.compile(pattern1);
 		final Matcher mat = pattern.matcher(mail);	
 		if (!mat.find()) {
