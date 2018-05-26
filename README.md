@@ -1,4 +1,4 @@
-# 目前实现功能
+# 已更换至https://github.com/attendent/chatRoom.git
 # 传了个压缩包，弄了很久的查看在线成员没弄错，刚把代码改回去，可能有bug
 # WebSocket
 
